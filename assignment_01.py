@@ -1,19 +1,18 @@
 import math
 
 def get_all_primes(limit):
-    # Returns a list of all primes up to the limit
-    prime_list = []
-    prime_list.append(2)
-    for i in range(3, limit+1, 2):
-        is_prime = True
-        for j in range(3, int(math.sqrt(i))+1, 2):
-            if i % j == 0 and i != j:
-                is_prime = False
-        if is_prime:
-            prime_list.append(i)
-    return prime_list
+    # Returns a list of all primes up to the limit using sieve algorithm
+    prime_list = [True for i in range(limit+1)]
+    prime_list[0] = prime_list[1] = False
+    for i in range(2, int(math.sqrt(limit))+1):
+        if prime_list[i]:
+            j = i*i
+            while j <= limit:
+                prime_list[j] = False
+                j += i
+    return [i for i in range(limit+1) if prime_list[i]]
 
-print(get_all_primes(1000000))
+print(get_all_primes(20))
 
 def find_largest_gap(limit) :
     return 0
